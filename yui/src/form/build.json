@@ -1,0 +1,10 @@
+{
+  "name": "moodle-availability_gwpayments-form",
+  "builds": {
+    "moodle-availability_gwpayments-form": {
+      "jsfiles": [
+        "form.js"
+      ]
+    }
+  }
+}
