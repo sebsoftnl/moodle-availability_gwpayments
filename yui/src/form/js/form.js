@@ -16,6 +16,8 @@ M.availability_gwpayments.form = Y.Object(M.core_availability.plugin);
  *
  * @method initInner
  * @param {Array} currencies Array of currency_code => localised string
+ * @param {Array} accounts Array of id => localised string
+ * @param {Array} defaults array of key => value
  */
 M.availability_gwpayments.form.initInner = function(currencies, accounts, defaults) {
     this.currencies = currencies;
@@ -24,41 +26,41 @@ M.availability_gwpayments.form.initInner = function(currencies, accounts, defaul
 };
 
 M.availability_gwpayments.form.getNode = function(json) {
-    var selected_string = '';
-    var currencies_options = '';
+    var selectedString = '';
+    var currenciesOptions = '';
     for (var curr in this.currencies) {
         if (json.currency === curr) {
-            selected_string = ' selected="selected" ';
+            selectedString = ' selected="selected" ';
         } else {
-            selected_string = '';
+            selectedString = '';
         }
-        currencies_options += '<option value="' + curr + '" ' + selected_string + ' >';
-        currencies_options += this.currencies[curr];
-        currencies_options += '</option>';
+        currenciesOptions += '<option value="' + curr + '" ' + selectedString + ' >';
+        currenciesOptions += this.currencies[curr];
+        currenciesOptions += '</option>';
     }
 
-    var account_options = '';
+    var accountOptions = '';
     for (var accid in this.accounts) {
         if (json.accountid === accid) {
-            selected_string = ' selected="selected" ';
+            selectedString = ' selected="selected" ';
         } else {
-            selected_string = '';
+            selectedString = '';
         }
-        account_options += '<option value="' + accid + '" ' + selected_string + ' >';
-        account_options += this.accounts[accid];
-        account_options += '</option>';
+        accountOptions += '<option value="' + accid + '" ' + selectedString + ' >';
+        accountOptions += this.accounts[accid];
+        accountOptions += '</option>';
     }
 
     var html = '';
 
     html += '<div><label>';
     html += M.util.get_string('paymentaccount', 'availability_gwpayments');
-    html += '<select name="accountid" />' + account_options + '</select>';
+    html += '<select name="accountid" />' + accountOptions + '</select>';
     html += '</label></div>';
 
     html += '<div><label>';
     html += M.util.get_string('currency', 'availability_gwpayments');
-    html += '<select name="currency" />' + currencies_options + '</select>';
+    html += '<select name="currency" />' + currenciesOptions + '</select>';
     html += '</label></div>';
 
     html += '<div><label>';
@@ -108,6 +110,12 @@ M.availability_gwpayments.form.getNode = function(json) {
     return node;
 };
 
+/**
+ * Fill or fetch a value
+ *
+ * @param {Object} value
+ * @param {Object} node
+ */
 M.availability_gwpayments.form.fillValue = function(value, node) {
     // This function gets passed the node (from above) and a value
     // object. Within that object, it must set up the correct values
@@ -128,7 +136,8 @@ M.availability_gwpayments.form.fillValue = function(value, node) {
  * dot or comma).
  *
  * @method getValue
- * @return {Number|String} Value of field as number or string if not valid
+ * @return {String} field Field name
+ * @return {Object} node Value of field as number or string if not valid
  */
 M.availability_gwpayments.form.getValue = function(field, node) {
     // Get field value.
@@ -144,14 +153,20 @@ M.availability_gwpayments.form.getValue = function(field, node) {
     return result;
 };
 
+/**
+ * Fill errors
+ *
+ * @param {Array} errors
+ * @param {Object} node
+ */
 M.availability_gwpayments.form.fillErrors = function(errors, node) {
     var value = {};
     this.fillValue(value, node);
 
-    if ((value.cost !== undefined && typeof(value.cost) === 'string') || value.cost <= 0 ) {
+    if ((value.cost !== undefined && (typeof value.cost === 'string')) || value.cost <= 0) {
         errors.push('availability_gwpayments:error_cost');
     }
-    if ((value.vat !== undefined && typeof(value.vat) === 'string') || value.vat < 0 || value.vat > 100 ) {
+    if ((value.vat !== undefined && (typeof value.vat  === 'string')) || value.vat < 0 || value.vat > 100) {
         errors.push('availability_gwpayments:error_vat');
     }
 };
