@@ -25,12 +25,21 @@ M.availability_gwpayments.form.initInner = function(currencies, accounts, defaul
     this.defaults = defaults;
 };
 
+/**
+ * get/create the condition node(s).
+ *
+ * @param {Object} json
+ * @return {Object} node
+ */
 M.availability_gwpayments.form.getNode = function(json) {
     var selectedString = '';
     var currenciesOptions = '';
     for (var curr in this.currencies) {
         if (json.currency === curr) {
-            selectedString = ' selected="selected" ';
+            selectedString = ' selected="selected"';
+        } else if (json.currency === undefined && this.defaults.currency !== undefined
+                && this.defaults.currency === curr) {
+            selectedString = ' selected="selected"';
         } else {
             selectedString = '';
         }

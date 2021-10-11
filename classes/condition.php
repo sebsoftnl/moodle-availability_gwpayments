@@ -184,6 +184,9 @@ class condition extends \core_availability\condition {
      */
     protected function get_either_description($not, $standalone, $info) {
         global $OUTPUT;
+        $config = get_config('availability_gwpayments');
+        $disablepaymentonmisconfig = (bool)$config->disablepaymentonmisconfig;
+
         $context = $info->get_context();
         if ($context->contextlevel === CONTEXT_MODULE) {
             // Course module.
@@ -197,6 +200,9 @@ class condition extends \core_availability\condition {
             $paymentarea = 'sectionfee';
         }
 
+        $notifications = [];
+        $canpaymentbemade = $this->can_payment_be_made($paymentarea, $instanceid, $notifications);
+
         $data = (object)[
             'isguestuser' => isguestuser(),
             'cost' => \core_payment\helper::get_cost_as_string($this->cost, $this->currency),
@@ -207,6 +213,20 @@ class condition extends \core_availability\condition {
             'successurl' => service_provider::get_success_url($paymentarea, $instanceid)->out(false),
         ];
         $data->localisedcost = $data->cost;
+
+        if (!$canpaymentbemade && $disablepaymentonmisconfig) {
+            $data->disablepaymentbutton = true;
+        }
+        $data->hasnotifications = false;
+        if (!$canpaymentbemade) {
+            $data->hasnotifications = true;
+            if (is_siteadmin() || has_capability('moodle/course:update', $context)) {
+                $data->notifications = $notifications;
+            } else {
+                $data->notifications = [get_string('err:payment:misconfiguration', 'availability_gwpayments')];
+            }
+        }
+
         $paymentregion = $OUTPUT->render_from_template('availability_gwpayments/payment_region', $data);
 
         if ($not) {
@@ -224,6 +244,40 @@ class condition extends \core_availability\condition {
      */
     protected function get_debug_string() {
         return gmdate('Y-m-d H:i:s');
+    }
+
+    /**
+     * Determine whether a valid payment can be made.
+     *
+     * @param string $paymentarea
+     * @param int $itemid
+     * @param array $reasons
+     * @return boolean
+     */
+    private function can_payment_be_made(string $paymentarea, int $itemid, array &$reasons) {
+        // If no account set...
+        if (empty($this->accountid)) {
+            $reasons[] = get_string('err:no-payment-account-set', 'availability_gwpayments');
+            return false;
+        }
+        try {
+            // Account validation.
+            $account = new \core_payment\account($this->accountid);
+            if (!$account->is_available()) {
+                $reasons[] = get_string('err:payment-account-unavailable', 'availability_gwpayments');
+                return false;
+            }
+            // Gateway currency validation.
+            $gateways = \core_payment\helper::get_available_gateways('availability_gwpayments', $paymentarea, $itemid);
+            if (count($gateways) == 0) {
+                $reasons[] = get_string('err:payment-no-available-gateways', 'availability_gwpayments');
+                return false;
+            }
+        } catch (\dml_missing_record_exception $e) {
+            $reasons[] = get_string('err:payment-account-not-exists', 'availability_gwpayments');
+            return false;
+        }
+        return true;
     }
 
 }

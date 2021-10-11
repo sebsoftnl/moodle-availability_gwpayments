@@ -53,3 +53,11 @@ $string['vat_help'] = 'VAT percentage of cost (note: cost is including VAT so th
 $string['paymentaccount'] = 'Payment account';
 $string['paymentaccount_help'] = 'Enrolment fees will be paid to this account.';
 $string['privacy:metadata'] = 'The PaymentS payment for conditional access availability plugin does not store any personal data.';
+$string['err:payment:misconfiguration'] = 'Due to a misconfiguration no payment can be made at this time.<br/>
+If this message persists, please notify the system administrator.';
+$string['err:no-payment-account-set'] = 'No payment account is set for this activity.';
+$string['err:payment-account-not-exists'] = 'The payment account for this activity no longer exists.';
+$string['err:payment-account-unavailable'] = 'The payment account for this activity is unavailable.';
+$string['err:payment-no-available-gateways'] = 'No gateway available for this activity. This is usually the case when the expected currency is not available for any gateway or one or more gateway(s) is/are disabled.';
+$string['disablepaymentonmisconfig'] = 'Do not display payment button when no (valid) payment can be made.';
+$string['disablepaymentonmisconfig_help'] = 'When enabled, the payment button will be hidden from view when a payment cannot be made, e.g. on currency mismappings or no gateways are available';

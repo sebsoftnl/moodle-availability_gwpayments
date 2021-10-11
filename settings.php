@@ -27,6 +27,16 @@ defined('MOODLE_INTERNAL') || die();
 
 if ($ADMIN->fulltree) {
     $config = get_config('availability_gwpayments');
+
+    $currencies = \availability_gwpayments\local\helper::get_possible_currencies();
+    if (empty($currencies)) {
+        $notify = new \core\output\notification(
+            get_string('nocurrencysupported', 'core_payment'),
+            \core\output\notification::NOTIFY_WARNING
+        );
+        $settings->add(new admin_setting_heading('availability_gwpayments_nocurrency', '', $OUTPUT->render($notify)));
+    }
+
     // Logo.
     $image = '<a href="http://www.sebsoft.nl" target="_new"><img src="' .
             $OUTPUT->image_url('logo', 'availability_gwpayments') . '" /></a>&nbsp;&nbsp;&nbsp;';
@@ -37,8 +47,22 @@ if ($ADMIN->fulltree) {
             get_string('promo', 'availability_gwpayments'),
             get_string('promodesc', 'availability_gwpayments', $header)));
 
+    $settings->add(new admin_setting_configtext('availability_gwpayments/cost',
+            get_string('cost', 'availability_gwpayments'),
+            '', 10.00, PARAM_FLOAT, 4));
+
     $settings->add(new admin_setting_configtext('availability_gwpayments/vat',
             get_string('vat', 'availability_gwpayments'),
             get_string('vat_help', 'availability_gwpayments'),
             21, PARAM_INT, 4));
+
+    if (!empty($currencies)) {
+        $settings->add(new admin_setting_configselect('availability_gwpayments/currency',
+                get_string('currency', 'availability_gwpayments'), '', 'EUR', $currencies));
+    }
+
+    $settings->add(new admin_setting_configcheckbox('availability_gwpayments/disablepaymentonmisconfig',
+        get_string('disablepaymentonmisconfig', 'availability_gwpayments'),
+        get_string('disablepaymentonmisconfig_help', 'availability_gwpayments'), 0));
+
 }

@@ -46,16 +46,16 @@ class service_provider implements \core_payment\local\callback\service_provider 
      * This is a utility method that can modify the actual variables and modify the payment
      * amount. This is where we transform the initial cost for e.g. coupons, discounts etc etc.
      *
-     * @param \stdClass $instance enrol instance.
+     * @param \stdClass $data
      * @param string $paymentarea Payment area
      * @param int $itemid The enrolment instance id
      * @return \stdClass
      */
-    private static function generate_payabledata(\stdClass $instance, string $paymentarea, int $itemid) {
+    private static function generate_payabledata(\stdClass $data, string $paymentarea, int $itemid) {
         $result = (object) [
-            'amount' => $instance->cost,
-            'currency' => $instance->currency,
-            'accountid' => $instance->customint1
+            'amount' => $data->cost,
+            'currency' => $data->currency,
+            'accountid' => (int)$data->accountid
         ];
 
         // We might eventually provide voucher codes, much as in enrol_gwpayments.
@@ -97,7 +97,8 @@ class service_provider implements \core_payment\local\callback\service_provider 
         if (empty($data)) {
             return new \core_payment\local\entities\payable(0, 'EUR', 0);
         } else {
-            return new \core_payment\local\entities\payable($data->cost, $data->currency, $data->accountid);
+            $pdata = static::generate_payabledata($data, $paymentarea, $instanceid);
+            return new \core_payment\local\entities\payable($pdata->amount, $pdata->currency, $pdata->accountid);
         }
     }
 
