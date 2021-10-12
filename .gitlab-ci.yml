@@ -10,6 +10,7 @@ variables:
   MOODLE_DIR: "/var/www/html/moodle"
   # If we want to ignore some templates, provide them here.
   #MUSTACHE_IGNORE_NAMES: "<file>.mustache, <file2>.mustache, ..., <filen>.mustache"
+  PLUGIN: availability_gwpayments
 
 .job_template: &job_definition
   stage: test
