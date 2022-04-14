@@ -15,6 +15,7 @@ variables:
   REPOSYS: 'git'
   # Moodle auto format = 0, Markdown = 4, Flat txt = 2
   RELEASENOTEFORMAT: '0'
+  PATHNAME: 'availability/condition/gwpayments'
 
 .job_template: &job_definition
   stage: test
