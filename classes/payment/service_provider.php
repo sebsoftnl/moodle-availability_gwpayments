@@ -88,9 +88,18 @@ class service_provider implements \core_payment\local\callback\service_provider 
 
         $data = null;
         foreach ($avinfo->c as $info) {
-            if ($info->type === 'gwpayments') {
-                $data = $info;
-                break;
+            if (isset($info->type)) {
+                if ($info->type === 'gwpayments') {
+                    $data = $info;
+                    break;
+                }
+            } else { // This may be a restriction set.
+                foreach ($info->c as $innerinfo) {
+                    if ($innerinfo->type === 'gwpayments') {
+                        $data = $innerinfo;
+                        break;
+                    }
+                }
             }
         }
 
