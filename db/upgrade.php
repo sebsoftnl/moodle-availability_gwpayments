@@ -22,14 +22,10 @@
  *
  * @package     availability_gwpayments
  *
- * @copyright   2021 Ing. R.J. van Dongen
- * @author      Ing. R.J. van Dongen <rogier@sebsoft.nl>
+ * @copyright   2021 RvD
+ * @author      RvD <helpdesk@sebsoft.nl>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
-defined('MOODLE_INTERNAL') || die();
-
-require_once(__DIR__.'/upgradelib.php');
 
 /**
  * Execute availability_gwpayments upgrade from the given old version.
@@ -41,6 +37,11 @@ function xmldb_availability_gwpayments_upgrade($oldversion) {
     global $DB;
 
     $dbman = $DB->get_manager();
+
+    if ($oldversion < 2024040900) {
+        set_config('disableifmoodleapp', 0, 'availability_gwpayments');
+        upgrade_plugin_savepoint(true, 2024040900, 'availability', 'gwpayments');
+    }
 
     return true;
 }

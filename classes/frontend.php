@@ -22,22 +22,20 @@
  *
  * @package     availability_gwpayments
  *
- * @copyright   2021 Ing. R.J. van Dongen
- * @author      Ing. R.J. van Dongen <rogier@sebsoft.nl>
+ * @copyright   2021 RvD
+ * @author      RvD <helpdesk@sebsoft.nl>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 namespace availability_gwpayments;
-
-defined('MOODLE_INTERNAL') || die();
 
 /**
  * Front-end class.
  *
  * @package     availability_gwpayments
  *
- * @copyright   2021 Ing. R.J. van Dongen
- * @author      Ing. R.J. van Dongen <rogier@sebsoft.nl>
+ * @copyright   2021 RvD
+ * @author      RvD <helpdesk@sebsoft.nl>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class frontend extends \core_availability\frontend {
@@ -52,12 +50,12 @@ class frontend extends \core_availability\frontend {
      * @return array Array of required string identifiers
      */
     protected function get_javascript_strings() {
-        return array(
+        return [
             'cost',
             'currency',
             'vat',
-            'paymentaccount'
-        );
+            'paymentaccount',
+        ];
     }
 
     /**
@@ -67,10 +65,10 @@ class frontend extends \core_availability\frontend {
      * Default returns true.
      *
      * @param \stdClass $course Course object
-     * @param \cm_info $cm Course-module currently being edited (null if none)
-     * @param \section_info $section Section currently being edited (null if none)
+     * @param \cm_info|null $cm Course-module currently being edited (null if none)
+     * @param \section_info|null $section Section currently being edited (null if none)
      */
-    protected function allow_add($course, \cm_info $cm = null, \section_info $section = null) {
+    protected function allow_add($course, ?\cm_info $cm = null, ?\section_info $section = null) {
         return true;
     }
 
@@ -80,22 +78,22 @@ class frontend extends \core_availability\frontend {
      * Default returns no parameters.
      *
      * @param \stdClass $course Course object
-     * @param \cm_info $cm Course-module currently being edited (null if none)
-     * @param \section_info $section Section currently being edited (null if none)
+     * @param \cm_info|null $cm Course-module currently being edited (null if none)
+     * @param \section_info|null $section Section currently being edited (null if none)
      * @return array Array of parameters for the JavaScript function
      */
-    protected function get_javascript_init_params($course, \cm_info $cm = null, \section_info $section = null) {
+    protected function get_javascript_init_params($course, ?\cm_info $cm = null, ?\section_info $section = null) {
         if ($cm !== null) {
             $context = $cm->context;
         } else {
             $context = \context_course::instance($course->id);
         }
 
-        return array(
+        return [
             \get_string_manager()->get_list_of_currencies(),
             \core_payment\helper::get_payment_accounts_menu($context),
-            get_config('availability_gwpayments')
-        );
+            get_config('availability_gwpayments'),
+        ];
     }
 
 }

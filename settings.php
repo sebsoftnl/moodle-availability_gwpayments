@@ -19,7 +19,7 @@
  *
  * @package     availability_gwpayments
  * @category    admin
- * @copyright   2017 R.J. van Dongen <rogier@sebsoft.nl>
+ * @copyright   2017 RvD <helpdesk@sebsoft.nl>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -64,5 +64,9 @@ if ($ADMIN->fulltree) {
     $settings->add(new admin_setting_configcheckbox('availability_gwpayments/disablepaymentonmisconfig',
         get_string('disablepaymentonmisconfig', 'availability_gwpayments'),
         get_string('disablepaymentonmisconfig_help', 'availability_gwpayments'), 0));
+
+    $settings->add(new admin_setting_configcheckbox('availability_gwpayments/disableifmoodleapp',
+        get_string('disableifmoodleapp', 'availability_gwpayments'),
+        get_string('disableifmoodleapp_help', 'availability_gwpayments'), 0));
 
 }

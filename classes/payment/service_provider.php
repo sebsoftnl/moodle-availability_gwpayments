@@ -22,8 +22,8 @@
  *
  * @package     availability_gwpayments
  *
- * @copyright   2021 Ing. R.J. van Dongen
- * @author      Ing. R.J. van Dongen <rogier@sebsoft.nl>
+ * @copyright   2021 RvD
+ * @author      RvD <helpdesk@sebsoft.nl>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -34,8 +34,8 @@ namespace availability_gwpayments\payment;
  *
  * @package     availability_gwpayments
  *
- * @copyright   2021 Ing. R.J. van Dongen
- * @author      Ing. R.J. van Dongen <rogier@sebsoft.nl>
+ * @copyright   2021 RvD
+ * @author      RvD <helpdesk@sebsoft.nl>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class service_provider implements \core_payment\local\callback\service_provider {
@@ -55,7 +55,7 @@ class service_provider implements \core_payment\local\callback\service_provider 
         $result = (object) [
             'amount' => $data->cost,
             'currency' => $data->currency,
-            'accountid' => (int)$data->accountid
+            'accountid' => (int)$data->accountid,
         ];
 
         // We might eventually provide voucher codes, much as in enrol_gwpayments.
