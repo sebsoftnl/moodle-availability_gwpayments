@@ -58,13 +58,14 @@
         </div>
     {{/isguestuser}}
     {{^isguestuser}}
+        <p>{{# str }} paymentrequired, availability_gwpayments {{/ str}}</p>
+        <p id="availability-gwpayments-basecost"><b>{{#str}}cost{{/str}}: {{currency}} {{localisedcost}}</b></p>
         {{#hasnotifications}}
         {{#notifications}}
         <div class="alert alert-warning">{{{.}}}</div>
         {{/notifications}}
         {{/hasnotifications}}
-        <p>{{# str }} paymentrequired, availability_gwpayments {{/ str}}</p>
-        <p id="availability-gwpayments-basecost"><b>{{#str}}cost{{/str}}: {{currency}} {{localisedcost}}</b></p>
+        {{^disablepaymentbutton}}
         <button
             class="btn btn-secondary"
             type="button"
@@ -75,11 +76,12 @@
             data-itemid="{{instanceid}}"
             data-cost="{{cost}}"
             data-successurl="{{successurl}}"
-            data-description={{# quote }}{{description}}{{/ quote }}
+            data-description="{{description}}"
             {{#disablepaymentbutton}}disabled="disabled"{{/disablepaymentbutton}}
         >
             {{# str }} sendpaymentbutton, availability_gwpayments {{/ str }}
         </button>
+        {{/disablepaymentbutton}}
     {{/isguestuser}}
 </div>
 {{^disablepaymentbutton}}

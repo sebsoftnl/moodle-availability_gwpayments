@@ -22,8 +22,8 @@
  *
  * @package     availability_gwpayments
  *
- * @copyright   Ing. R.J. van Dongen
- * @author      R.J. van Dongen <rogier@sebsoft.nl>
+ * @copyright   RvD
+ * @author      RvD <helpdesk@sebsoft.nl>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -41,14 +41,13 @@ use core_payment\helper as payment_helper;
  *
  * @package     availability_gwpayments
  *
- * @copyright   Ing. R.J. van Dongen
- * @author      R.J. van Dongen <rogier@sebsoft.nl>
+ * @copyright   RvD
+ * @author      RvD <helpdesk@sebsoft.nl>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class provider implements
     \core_privacy\local\metadata\null_provider,
-    \core_payment\privacy\consumer_provider
-{
+    \core_payment\privacy\consumer_provider {
     /**
      * Get the language string identifier with the component's language
      * file to explain why this plugin stores no data.
