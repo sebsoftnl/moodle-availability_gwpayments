@@ -1,6 +1,6 @@
 variables:
   PLUGIN: 'availability_gwpayments'
-  PATHNAME: 'availability/condition/gwpayments/coupon'
+  PATHNAME: 'availability/condition/gwpayments'
   REPOURL: 'https://github.com/sebsoftnl/moodle-availability_gwpayments'
 
 include:

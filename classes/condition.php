@@ -42,9 +42,21 @@ use availability_gwpayments\payment\service_provider;
  */
 class condition extends \core_availability\condition {
 
+    /**
+     * @var int
+     */
     private $accountid;
+    /**
+     * @var string
+     */
     private $currency;
+    /**
+     * @var float
+     */
     private $cost;
+    /**
+     * @var float
+     */
     private $vat;
 
     /**
@@ -182,10 +194,20 @@ class condition extends \core_availability\condition {
      * This is used in a HTML data attribute and will remove ALL single/double quotes.
      *
      * @param string $forstring
+     * @param \core\context $context
      * @return string
      */
-    protected function get_payment_description($forstring) {
-        $desc = get_string('purchasedescription', 'availability_gwpayments', $forstring);
+    protected function get_payment_description($forstring, $context) {
+        $prefix = get_config('availabiliuty_gwpayments', 'purchasedescprepend');
+        if (empty($prefix)) {
+            $desc = $forstring;
+        } else {
+            $desc = format_text($forstring, FORMAT_MOODLE, [
+                'context' => $context,
+                'para' => false,
+                'overflowdiv' => false,
+            ]);
+        }
         // Replace single AND double quotes.
         $desc = str_replace('"', '', $desc);
         $desc = str_replace("'", '', $desc);
@@ -228,7 +250,7 @@ class condition extends \core_availability\condition {
             'component' => 'availability_gwpayments',
             'paymentarea' => $paymentarea,
             'instanceid' => $instanceid,
-            'description' => $this->get_payment_description($description),
+            'description' => $this->get_payment_description($description, $context),
             'successurl' => service_provider::get_success_url($paymentarea, $instanceid)->out(false),
         ];
         $data->localisedcost = $data->cost;

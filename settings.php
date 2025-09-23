@@ -67,6 +67,11 @@ if ($ADMIN->fulltree) {
 
     $settings->add(new admin_setting_configcheckbox('availability_gwpayments/disableifmoodleapp',
         get_string('disableifmoodleapp', 'availability_gwpayments'),
-        get_string('disableifmoodleapp_help', 'availability_gwpayments'), 0));
+        get_string('disableifmoodleapp_help', 'availability_gwpayments'), 1));
+
+    $settings->add(new admin_setting_configtextarea('availability_gwpayments/purchasedescprepend ',
+        get_string('purchasedescprepend', 'availability_gwpayments'),
+        get_string('purchasedescprepend_help', 'availability_gwpayments'),
+        '', PARAM_RAW));
 
 }

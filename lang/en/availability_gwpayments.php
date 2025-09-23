@@ -61,7 +61,6 @@ $string['title'] = 'PaymentS payment';
 $string['vat'] = 'VAT';
 $string['vat_help'] = 'VAT percentage of cost (note: cost is including VAT so this is purely indicative).';
 $string['warn:disabledifmoodleapp'] = 'Payments can only be made from within the browser, please log in to the LMS from there to perform payments.';
-
-
-
-
+$string['purchasedescprepend'] = 'Purchase description prefix';
+$string['purchasedescprepend_help'] = 'You can configure text to be prepended to the purchase description here.<br/>
+By default, only the activity/resource name will be used. This fields fully supports multi language formatting.';

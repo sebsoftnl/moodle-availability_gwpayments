@@ -1,3 +1,12 @@
+Version 1.0.5 build 2025090100
+
+** Merged PR #2
+** Fixed #10
+** Fixed #6 (might be forced in the future)
+** Fixed #5 (added "purchase description prepend string setting)
+** Deprecated 'purchasedescription' string ID
+
+-----
 Version 1.0.2 build 2021081602
 
 ** Fixed issue #1
