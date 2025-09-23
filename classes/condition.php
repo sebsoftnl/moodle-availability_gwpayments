@@ -42,6 +42,11 @@ use availability_gwpayments\payment\service_provider;
  */
 class condition extends \core_availability\condition {
 
+    private $accountid;
+    private $currency;
+    private $cost;
+    private $vat;
+
     /**
      * Constructor.
      *
