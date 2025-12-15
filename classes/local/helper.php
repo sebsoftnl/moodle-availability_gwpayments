@@ -39,7 +39,6 @@ namespace availability_gwpayments\local;
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class helper {
-
     /**
      * Can the given user access the given module (aka, do we have a payment)?
      *
@@ -49,8 +48,15 @@ class helper {
      */
     public static function can_access_cm($userid, $cm) {
         global $DB;
-        return $DB->record_exists('payments', ['userid' => $userid,
-            'component' => 'availability_gwpayments', 'itemid' => $cm->id, 'paymentarea' => 'cmfee']);
+        return $DB->record_exists(
+            'payments',
+            [
+                'userid' => $userid,
+                'component' => 'availability_gwpayments',
+                'itemid' => $cm->id,
+                'paymentarea' => 'cmfee',
+            ]
+        );
     }
 
     /**
@@ -62,8 +68,15 @@ class helper {
      */
     public static function can_access_section($userid, $section) {
         global $DB;
-        return $DB->record_exists('payments', ['userid' => $userid,
-            'component' => 'availability_gwpayments', 'itemid' => $section->id, 'paymentarea' => 'sectionfee']);
+        return $DB->record_exists(
+            'payments',
+            [
+                'userid' => $userid,
+                'component' => 'availability_gwpayments',
+                'itemid' => $section->id,
+                'paymentarea' => 'sectionfee',
+            ]
+        );
     }
 
     /**
@@ -79,11 +92,10 @@ class helper {
             $currencies[$c] = new \lang_string($c, 'core_currencies');
         }
 
-        uasort($currencies, function($a, $b) {
+        uasort($currencies, function ($a, $b) {
             return strcmp($a, $b);
         });
 
         return $currencies;
     }
-
 }

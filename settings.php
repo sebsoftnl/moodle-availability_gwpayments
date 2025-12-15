@@ -43,35 +43,60 @@ if ($ADMIN->fulltree) {
     $donate = '<a href="https://customerpanel.sebsoft.nl/sebsoft/donate/intro.php" target="_new"><img src="' .
             $OUTPUT->image_url('donate', 'availability_gwpayments') . '" /></a>';
     $header = '<div class="availability_gwpayments-logopromo">' . $image . $donate . '</div>';
-    $settings->add(new admin_setting_heading('availability_gwpayments_logopromo',
-            get_string('promo', 'availability_gwpayments'),
-            get_string('promodesc', 'availability_gwpayments', $header)));
+    $settings->add(new admin_setting_heading(
+        'availability_gwpayments_logopromo',
+        get_string('promo', 'availability_gwpayments'),
+        get_string('promodesc', 'availability_gwpayments', $header)
+    ));
 
-    $settings->add(new admin_setting_configtext('availability_gwpayments/cost',
-            get_string('cost', 'availability_gwpayments'),
-            '', 10.00, PARAM_FLOAT, 4));
+    $settings->add(new admin_setting_configtext(
+        'availability_gwpayments/cost',
+        get_string('cost', 'availability_gwpayments'),
+        '',
+        10.00,
+        PARAM_FLOAT,
+        4
+    ));
 
-    $settings->add(new admin_setting_configtext('availability_gwpayments/vat',
-            get_string('vat', 'availability_gwpayments'),
-            get_string('vat_help', 'availability_gwpayments'),
-            21, PARAM_INT, 4));
+    $settings->add(new admin_setting_configtext(
+        'availability_gwpayments/vat',
+        get_string('vat', 'availability_gwpayments'),
+        get_string('vat_help', 'availability_gwpayments'),
+        21,
+        PARAM_INT,
+        4
+    ));
 
     if (!empty($currencies)) {
-        $settings->add(new admin_setting_configselect('availability_gwpayments/currency',
-                get_string('currency', 'availability_gwpayments'), '', 'EUR', $currencies));
+        $settings->add(new admin_setting_configselect(
+            'availability_gwpayments/currency',
+            get_string('currency', 'availability_gwpayments'),
+            '',
+            'EUR',
+            $currencies
+        ));
     }
 
-    $settings->add(new admin_setting_configcheckbox('availability_gwpayments/disablepaymentonmisconfig',
+    $settings->add(new admin_setting_configcheckbox(
+        'availability_gwpayments/disablepaymentonmisconfig',
         get_string('disablepaymentonmisconfig', 'availability_gwpayments'),
-        get_string('disablepaymentonmisconfig_help', 'availability_gwpayments'), 0));
+        get_string('disablepaymentonmisconfig_help', 'availability_gwpayments'),
+        0
+    ));
 
-    $settings->add(new admin_setting_configcheckbox('availability_gwpayments/disableifmoodleapp',
+    $settings->add(new admin_setting_configcheckbox(
+        'availability_gwpayments/disableifmoodleapp',
         get_string('disableifmoodleapp', 'availability_gwpayments'),
-        get_string('disableifmoodleapp_help', 'availability_gwpayments'), 1));
+        get_string('disableifmoodleapp_help', 'availability_gwpayments'),
+        1
+    ));
 
-    $settings->add(new admin_setting_configtextarea('availability_gwpayments/purchasedescprepend ',
+
+    $settings->add(new admin_setting_configtextarea(
+        'availability_gwpayments/purchasedescprepend',
         get_string('purchasedescprepend', 'availability_gwpayments'),
         get_string('purchasedescprepend_help', 'availability_gwpayments'),
-        '', PARAM_RAW));
-
+        '',
+        PARAM_RAW
+    ));
 }

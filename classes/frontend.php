@@ -39,7 +39,6 @@ namespace availability_gwpayments;
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class frontend extends \core_availability\frontend {
-
     /**
      * Gets a list of string identifiers (in the plugin's language file) that
      * are required in JavaScript for this plugin. The default returns nothing.
@@ -95,5 +94,4 @@ class frontend extends \core_availability\frontend {
             get_config('availability_gwpayments'),
         ];
     }
-
 }

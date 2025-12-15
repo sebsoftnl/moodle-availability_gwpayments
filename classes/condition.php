@@ -41,7 +41,6 @@ use availability_gwpayments\payment\service_provider;
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class condition extends \core_availability\condition {
-
     /**
      * @var int
      */
@@ -335,5 +334,4 @@ class condition extends \core_availability\condition {
         }
         return true;
     }
-
 }

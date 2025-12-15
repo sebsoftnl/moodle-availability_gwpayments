@@ -1,4 +1,4 @@
-Version 1.0.5 build 2025090100
+Version 1.0.5 build 2025120100
 
 ** Merged PR #2
 ** Fixed #10

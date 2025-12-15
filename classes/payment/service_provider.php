@@ -39,7 +39,6 @@ namespace availability_gwpayments\payment;
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class service_provider implements \core_payment\local\callback\service_provider {
-
     /**
      * Generate payable data.
      *
@@ -123,7 +122,7 @@ class service_provider implements \core_payment\local\callback\service_provider 
 
         switch ($paymentarea) {
             case 'cmfee':
-                list($course, $cm) = get_course_and_cm_from_cmid($instanceid);
+                [$course, $cm] = get_course_and_cm_from_cmid($instanceid);
                 return new \moodle_url('/course/view.php', ['id' => $course->id]);
             case 'sectionfee':
                 $section = $DB->get_record('course_sections', ['id' => $instanceid]);
@@ -146,5 +145,4 @@ class service_provider implements \core_payment\local\callback\service_provider 
 
         return true;
     }
-
 }
